@@ -1,9 +1,7 @@
 import LogoCake from '../assets/banh-chung-0218134.webp';
+import { Cake } from '../models/cake.model';
 
-type Props = {
-    title?: string;
-    description?: string;
-}
+type Props = Cake;
 
 const CardCake = ({title, description}: Props) => {
     return (
