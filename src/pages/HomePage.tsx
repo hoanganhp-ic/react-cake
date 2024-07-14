@@ -20,6 +20,7 @@ const HomePage = () => {
         { id: 10, name: 'Bánh bao', description: 'Bánh bao 1 trứng' },
         { id: 11, name: 'Bánh gà', description: 'Bánh gà công nghiệp' },
         { id: 12, name: 'Bánh nướng', description: 'Có chese' },
+        { id: 13, name: 'Bánh me', description: 'Có chese' },
     ]
 
     const [page, setPage] = useState(1);
@@ -37,7 +38,7 @@ const HomePage = () => {
         clearTimeout(searchRef.current!);
         searchRef.current = setTimeout(() => {
             setSearchText(value);
-        }, 1500);
+        }, 1000);
     };
 
     useEffect(() => {
@@ -48,13 +49,13 @@ const HomePage = () => {
                 setTimeout(() => {
                     setCakes(data);
                     setIsLoading(false);
-                }, 1000);
+                }, 500);
             } else {
                 const data = searchCakes.slice((page - 1) * 3, page * 3);
                 setTimeout(() => {
                     setCakes(prev => [...cakes, ...data]);
                     setIsLoading(false);
-                }, 1000);
+                }, 500);
             
             }
         } else {
@@ -62,7 +63,7 @@ const HomePage = () => {
             setTimeout(() => {
                 setCakes(prev => [...cakes, ...data]);
                 setIsLoading(false);
-            }, 1000);
+            }, 500);
         }
     }, [page, searchText]);
 
