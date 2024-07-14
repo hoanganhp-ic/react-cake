@@ -1,3 +1,4 @@
+import ButtonField from '../components/ButtonField';
 import { Cake } from '../models/cake.model';
 import CardCake from '../sections/CardCake';
 import { useEffect, useState } from 'react';
@@ -24,6 +25,9 @@ const HomePage = () => {
             {
                 cakes.map(cake => <CardCake key={cake.id} id={cake.id} name={cake.name} description={cake.description} />)
             }
+            <div style={{ display: 'flex', justifyContent: 'center', width: '100%'}}>
+            <ButtonField> Show more </ButtonField>
+            </div>
         </div>
     </div>
   );
