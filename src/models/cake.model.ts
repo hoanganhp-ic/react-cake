@@ -1,5 +1,7 @@
 export type Cake = {
     id?: number;
-    title?: string;
+    name?: string;
     description?: string;
+    price?: number;
+    category_id?: number;
 }
