@@ -1,4 +1,5 @@
 import ButtonField from '../components/ButtonField';
+import TextField from '../components/TextField';
 import { Cake } from '../models/cake.model';
 import CardCake from '../sections/CardCake';
 import { useEffect, useState } from 'react';
@@ -21,6 +22,7 @@ const HomePage = () => {
 
   return (
     <div style={{ height: 'calc(100vh - 309px)', padding: '4rem 4rem', overflowY: 'auto'}}>
+        <TextField placeholder="Search cake" width='250px'/>
         <div className="wrapper-card-items">
             {
                 cakes.map(cake => <CardCake key={cake.id} id={cake.id} name={cake.name} description={cake.description} />)
