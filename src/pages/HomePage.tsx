@@ -1,4 +1,5 @@
 import ButtonField from '../components/ButtonField';
+import SpinnerLoad from '../components/SpinnerLoad';
 import TextField from '../components/TextField';
 import { Cake } from '../models/cake.model';
 import CardCake from '../sections/CardCake';
@@ -25,6 +26,11 @@ const HomePage = () => {
     const [cakes, setCakes] = useState<Cake[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
+    const handleShowMore = () => {
+        setIsLoading(true);
+        setPage(page + 1);
+    }
+
     useEffect(() => {
         setIsLoading(true);
         const data = dataCakes.slice((page - 1) * 3, page * 3);
@@ -37,15 +43,28 @@ const HomePage = () => {
 
   return (
     <div style={{ height: 'calc(100vh - 309px)', padding: '4rem 4rem', overflowY: 'auto'}}>
-        <TextField placeholder="Search cake" width='250px'/>
-        <div className="wrapper-card-items">
-            {
-                cakes.map(cake => <CardCake key={cake.id} id={cake.id} name={cake.name} description={cake.description} />)
-            }
-            <div style={{ display: 'flex', justifyContent: 'center', width: '100%'}}>
-            <ButtonField loading={isLoading} onClick={() => setPage(page + 1)}> Show more </ButtonField>
-            </div>
-        </div>
+        {
+            !cakes.length && (
+                <div style={{ display:'flex', justifyContent: 'center', alignItems: 'center', height: '100%'}}>
+                    <SpinnerLoad />
+                </div>
+            )
+        }
+        {
+            cakes.length > 0 && (
+                <div>
+                    <TextField placeholder="Search cake" width='250px'/>
+                    <div className="wrapper-card-items">
+                        {
+                            cakes.map(cake => <CardCake key={cake.id} id={cake.id} name={cake.name} description={cake.description} />)
+                        }
+                        <div style={{ display: 'flex', justifyContent: 'center', width: '100%'}}>
+                        <ButtonField loading={isLoading} onClick={handleShowMore}> Show more </ButtonField>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
     </div>
   );
 }
