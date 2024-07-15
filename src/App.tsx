@@ -4,6 +4,8 @@ import Footer from './layouts/Footer';
 import './App.css';
 import { createBrowserRouter, Outlet, RouteObject, RouterProvider } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
+import CreateCake from './pages/CreateCake';
+import DetailCake from './pages/DetailCake';
 
 const appRoutes: RouteObject[] = [
   {
@@ -15,7 +17,12 @@ const appRoutes: RouteObject[] = [
         element: <HomePage />
       },
       {
-        path: 'create'
+        path: '/create-cake',
+        element: <CreateCake />
+      },
+      {
+        path: '/cake/:id',
+        element: <DetailCake />
       }
     ]
   }

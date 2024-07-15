@@ -117,3 +117,8 @@ input {
   }
 }
 /* Loading Spinner */
+
+a {
+  color: white;
+  text-decoration: none;
+}
