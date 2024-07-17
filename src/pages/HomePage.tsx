@@ -43,34 +43,20 @@ const HomePage = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        if (searchText) {
-            if (page === 1) {
-                const data = searchCakes.slice(0, 3);
-                setTimeout(() => {
-                    setCakes(data);
-                    setIsLoading(false);
-                }, 500);
-            } else {
-                const data = searchCakes.slice((page - 1) * 3, page * 3);
-                setTimeout(() => {
-                    setCakes(prev => [...cakes, ...data]);
-                    setIsLoading(false);
-                }, 500);
-            
-            }
-        } else {
-            const data = dataCakes.slice((page - 1) * 3, page * 3);
-            setTimeout(() => {
-                setCakes(prev => [...cakes, ...data]);
+        fetch(`http://localhost:8080/cake/search?name=${searchCakes}&page=${page}&page_size=3`)
+            .then(res => {
+                return res.json();
+            }).then(res => {
+                setCakes(res);
+                setCakes([...cakes, ...res]);
                 setIsLoading(false);
-            }, 500);
-        }
+            })
     }, [page, searchText]);
 
     const searchCakes = useMemo(() => {
         setPage(1);
         setCakes([]);
-        return dataCakes.filter(cake => cake.name?.toLowerCase().includes(searchText.toLowerCase()));
+        return searchText;
     }, [searchText]);
 
 

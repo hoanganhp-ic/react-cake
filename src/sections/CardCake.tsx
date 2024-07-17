@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import LogoCake from '../assets/banh-chung-0218134.webp';
 import { Cake } from '../models/cake.model';
 
@@ -5,8 +6,9 @@ type Props = Cake & {
 };
 
 const CardCake = ({id, name, description}: Props) => {
+    const navigate = useNavigate();
     return (
-        <div className="card-items">
+        <div className="card-items" onClick={() => navigate(`/cake/${id}`)}>
             <img src={LogoCake} alt="logo cake" className="card-image-cake" />
             <div style={{ height: '50%', width: '100%'}}></div>
             <div className='card-content'>
