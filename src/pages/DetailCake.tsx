@@ -1,9 +1,10 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import LogoCake from '../assets/banh-chung-0218134.webp';
 import ButtonField from "../components/ButtonField";
 import { Cake } from "../models/cake.model";
 import { useEffect, useState } from "react";
 import LoadingLayout from "../layouts/Loading";
+import ModalLayout from "../layouts/ModalLayout";
 
 const DetailCake = () => {
 
@@ -15,6 +16,17 @@ const DetailCake = () => {
     const { id } = useParams();
     const [cake, setCake] = useState<Cake>({});
     const [isLoading, setIsLoading] = useState(false);
+    const [isShowModal, setIsShowModal] = useState(false);
+    const navigation = useNavigate();
+
+    const handleRemoveCake = () => {
+        fetch(`${api}/cakes/${id}`, {method: 'DELETE'})
+            .then((res) => {
+                if (res.status < 400) {
+                    navigation('/');
+                }
+            })
+    };
 
     useEffect(() => {
         setIsLoading(true);
@@ -29,6 +41,7 @@ const DetailCake = () => {
                 }, 1000);
             });
     }, [id]);
+
     return (
         <LoadingLayout loading={isLoading}>
             <div style={{ display: 'flex', alignItems: 'center', columnGap: '2rem' }}>
@@ -44,9 +57,15 @@ const DetailCake = () => {
                         価値: <span style={{ fontSize: '24px'}}>{cake.price}</span>
                     </div>
                     <div style={{ display: 'flex' }}>
-                       <ButtonField>カートに追加</ButtonField>
+                       <ButtonField onClick={() => setIsShowModal(true)}>削除</ButtonField>
                     </div>
                 </div>
+                <ModalLayout 
+                 width="40%"
+                 title="ケーキを削除するか？"
+                 isShow={isShowModal}
+                 onClose={() => setIsShowModal(false)}
+                 onConfirm={handleRemoveCake} />
             </div>
         </LoadingLayout>
     )
