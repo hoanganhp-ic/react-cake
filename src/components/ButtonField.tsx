@@ -3,12 +3,13 @@ import { IcSpinner } from "../icons/IcSpinner";
 type Props = {
     loading?: boolean;
     children?: React.ReactNode;
+    color?: 'main' | 'primary';
     onClick?: () => void;
 }
 
-const ButtonField = ({ children, loading, onClick }: Props) => {
+const ButtonField = ({ children, loading, onClick, color }: Props) => {
     return (
-        <div className="btn-main" onClick={onClick && onClick}>
+        <div className={`btn btn-${color}`} onClick={onClick && onClick}>
             {!loading 
                 ? children 
                 : <div style={{ display: 'flex', alignItems: 'center', columnGap: '0.5rem', color: '#fff' }}>
