@@ -3,6 +3,7 @@ import LogoCake from '../assets/banh-chung-0218134.webp';
 import ButtonField from "../components/ButtonField";
 import { Cake } from "../models/cake.model";
 import { useEffect, useState } from "react";
+import LoadingLayout from "../layouts/Loading";
 
 const DetailCake = () => {
 
@@ -13,16 +14,23 @@ const DetailCake = () => {
 
     const { id } = useParams();
     const [cake, setCake] = useState<Cake>({});
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+        setIsLoading(true);
         fetch(`${api}/cakes/${id}`)
             .then(res => res.json())
             .then(res => {
                 setCake(res);
             })
+            .finally(() => {
+                setTimeout(() => {
+                    setIsLoading(false);
+                }, 1000);
+            });
     }, [id]);
     return (
-        <div style={{ height: 'calc(100vh - 309px)', padding: '4rem 4rem', overflowY: 'auto'}}>
+        <LoadingLayout loading={isLoading}>
             <div style={{ display: 'flex', alignItems: 'center', columnGap: '2rem' }}>
                 <img alt="Cake" src={LogoCake} width='450px' height='450px' />
                 <div>
@@ -40,7 +48,7 @@ const DetailCake = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </LoadingLayout>
     )
 }
 
