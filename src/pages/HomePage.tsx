@@ -4,24 +4,16 @@ import TextField from '../components/TextField';
 import { Cake } from '../models/cake.model';
 import CardCake from '../sections/CardCake';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { USD, LYD } from '@dinero.js/currencies';
+import { dinero, toDecimal, toUnits } from 'dinero.js';
+
+
+
 
 const HomePage = () => {
+    const price = dinero({ amount: 5000, currency: LYD });
+    console.log(toDecimal(price));
 
-    const dataCakes = [
-        { id: 1, name: 'Bánh chưng', description: 'Miền trung' },
-        { id: 2, name: 'Bánh cá', description: 'Cá hồi' },
-        { id: 3, name: 'Bánh kem', description: 'Sinh nhật' },
-        { id: 4, name: 'Bánh mì', description: 'Pate' },
-        { id: 5, name: 'Bánh gạo', description: 'Làm từ gạo lứt' },
-        { id: 6, name: 'Bánh cáy', description: 'Đặc sản Nghệ An' },
-        { id: 7, name: 'Bánh nem', description: 'Đến từ thanh hoá' },
-        { id: 8, name: 'Bánh cuốn', description: 'Bánh mướt nhân thịt' },
-        { id: 9, name: 'Bánh trứng', description: 'Trứng khủng long' },
-        { id: 10, name: 'Bánh bao', description: 'Bánh bao 1 trứng' },
-        { id: 11, name: 'Bánh gà', description: 'Bánh gà công nghiệp' },
-        { id: 12, name: 'Bánh nướng', description: 'Có chese' },
-        { id: 13, name: 'Bánh me', description: 'Có chese' },
-    ]
 
     const [page, setPage] = useState(1);
     const [cakes, setCakes] = useState<Cake[]>([]);
@@ -43,7 +35,7 @@ const HomePage = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch(`http://localhost:8080/cake/search?name=${searchCakes}&page=${page}&page_size=3`)
+        fetch(`http://localhost:8080/api/cakes/search?name=${searchCakes}&page=${page}&page_size=3`)
             .then(res => {
                 return res.json();
             }).then(res => {
