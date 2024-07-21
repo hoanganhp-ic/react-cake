@@ -1,6 +1,4 @@
-import Header from './layouts/Header';
 import HomePage from './pages/HomePage';
-import Footer from './layouts/Footer';
 import './App.css';
 import { createBrowserRouter, Outlet, RouteObject, RouterProvider } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';

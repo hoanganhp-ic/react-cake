@@ -5,11 +5,19 @@ type Props = {
     children?: React.ReactNode;
     color?: 'main' | 'primary';
     onClick?: () => void;
+    disabled?: boolean;
 }
 
-const ButtonField = ({ children, loading, onClick, color }: Props) => {
+const ButtonField = ({ children, loading, disabled,onClick, color }: Props) => {
+
+    const handleOnclick = () => {
+        if (disabled) {
+            return;
+        }
+        onClick && onClick();
+    };
     return (
-        <div className={`btn btn-${color}`} onClick={onClick && onClick}>
+        <div className={`btn btn-${color} ${disabled ? 'disabled' : ''}`} onClick={onClick && onClick}>
             {!loading 
                 ? children 
                 : <div style={{ display: 'flex', alignItems: 'center', columnGap: '0.5rem', color: '#fff' }}>

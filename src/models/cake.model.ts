@@ -4,3 +4,9 @@ export type Cake = {
     description?: string;
     price?: number;
 }
+
+export enum FieldCake {
+    Name = 'name',
+    Description = 'description',
+    Price = 'price'
+}
