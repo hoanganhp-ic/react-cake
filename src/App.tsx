@@ -4,10 +4,22 @@ import { createBrowserRouter, Outlet, RouteObject, RouterProvider } from 'react-
 import MainLayout from './layouts/MainLayout';
 import CreateCake from './pages/CreateCake';
 import DetailCake from './pages/DetailCake';
+import Login from './pages/auth/Login';
+import Layout from './layouts/Layout';
 
 const appRoutes: RouteObject[] = [
   {
     path: '/',
+    element: <Layout/>,
+    children: [
+      {
+        path: 'login',
+        element: <Login />
+      }
+    ]
+  },
+  {
+    path: '/cake',
     element: <MainLayout />,
     children: [
       {
@@ -15,11 +27,11 @@ const appRoutes: RouteObject[] = [
         element: <HomePage />
       },
       {
-        path: '/create-cake',
+        path: 'create',
         element: <CreateCake />
       },
       {
-        path: '/cake/:id',
+        path: ':id',
         element: <DetailCake />
       }
     ]
