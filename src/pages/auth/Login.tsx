@@ -7,6 +7,8 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import userService from '../../services/user.service';
+import { User } from '../../models/user.model';
 
 function Copyright(props: any) {
   return (
@@ -29,6 +31,14 @@ export default function Login() {
       email: data.get('email'),
       password: data.get('password'),
     });
+    let user : User = {
+        email: data.get('email')?.toString(),
+        password: data.get('password')?.toString(),
+    }
+    userService.login(user)
+        .then(resp => {
+            console.log(resp.data);
+        })
   };
 
   return (
