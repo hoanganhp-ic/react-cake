@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import userService from '../../services/user.service';
 import { User } from '../../models/user.model';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 function Copyright(props: any) {
   return (
@@ -24,9 +25,12 @@ function Copyright(props: any) {
 }
 
 export default function Login() {
+
+  let navigate: NavigateFunction = useNavigate();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    
     console.log({
       email: data.get('email'),
       password: data.get('password'),
@@ -36,8 +40,9 @@ export default function Login() {
         password: data.get('password')?.toString(),
     }
     userService.login(user)
-        .then(resp => {
-            console.log(resp.data);
+        .then(() => {
+            navigate('/profile');
+            window.location.reload();
         })
   };
 

@@ -6,6 +6,7 @@ import CreateCake from './pages/CreateCake';
 import DetailCake from './pages/DetailCake';
 import Login from './pages/auth/Login';
 import Layout from './layouts/Layout';
+import Profile from './pages/auth/Profile';
 
 const appRoutes: RouteObject[] = [
   {
@@ -15,6 +16,10 @@ const appRoutes: RouteObject[] = [
       {
         path: 'login',
         element: <Login />
+      },
+      {
+        path: 'profile',
+        element: <Profile />,
       }
     ]
   },
