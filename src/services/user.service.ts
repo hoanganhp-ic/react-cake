@@ -20,6 +20,10 @@ class UserService {
     getCurrentUser() {
         return httpCommon.get("/users/current", { headers: authHeader() });
     }
+
+    register(data: User) {
+        return httpCommon.post("/auth/register", data);
+    }
 }
 
 export default new UserService();

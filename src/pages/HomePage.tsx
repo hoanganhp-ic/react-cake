@@ -8,9 +8,8 @@ import LoadingLayout from '../layouts/Loading';
 
 
 
-
 const HomePage = () => {
-    
+
     const [page, setPage] = useState(1);
     const [cakes, setCakes] = useState<Cake[]>([]);
     const [isLoading, setIsLoading] = useState(false);

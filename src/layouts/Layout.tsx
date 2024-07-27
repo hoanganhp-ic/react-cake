@@ -5,7 +5,7 @@ import { Container } from '@mui/material';
 
 const Layout = () => {
     return (
-        <Container maxWidth="sm">
+        <Container >
              <Outlet />
         </Container>
     )

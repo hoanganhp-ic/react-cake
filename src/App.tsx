@@ -7,6 +7,8 @@ import DetailCake from './pages/DetailCake';
 import Login from './pages/auth/Login';
 import Layout from './layouts/Layout';
 import Profile from './pages/auth/Profile';
+import "bootstrap/dist/css/bootstrap.min.css";
+import Register from './pages/auth/Register';
 
 const appRoutes: RouteObject[] = [
   {
@@ -20,6 +22,10 @@ const appRoutes: RouteObject[] = [
       {
         path: 'profile',
         element: <Profile />,
+      },
+      {
+        path: 'register',
+        element: <Register />
       }
     ]
   },
@@ -43,6 +49,7 @@ const appRoutes: RouteObject[] = [
   }
 ];
 
+
 const router = createBrowserRouter([
   {
     element: (
@@ -53,6 +60,8 @@ const router = createBrowserRouter([
 ])
 
 function App() {
+
+
 
   return <RouterProvider router={router}/>;
 }
