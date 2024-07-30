@@ -72,7 +72,7 @@ const CreateCake = () => {
                             />
                         </div>
                         <div className="form-control flex-basic-between" style={{ display: 'flex', marginTop: '1rem'}}>
-                           <ButtonField onClick={handleCreateCake} disabled={checkButtonDisabled} >作成</ButtonField>
+                            <ButtonField onClick={handleCreateCake} disabled={checkButtonDisabled} >作成</ButtonField>
                         </div>
                     </div>
                 </div>

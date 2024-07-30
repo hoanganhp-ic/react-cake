@@ -9,6 +9,7 @@ import Layout from './layouts/Layout';
 import Profile from './pages/auth/Profile';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Register from './pages/auth/Register';
+import PrivateRoute from './route/PrivateRoute';
 
 const appRoutes: RouteObject[] = [
   {
@@ -21,7 +22,11 @@ const appRoutes: RouteObject[] = [
       },
       {
         path: 'profile',
-        element: <Profile />,
+        element:(
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+          ),
       },
       {
         path: 'register',
@@ -31,7 +36,11 @@ const appRoutes: RouteObject[] = [
   },
   {
     path: '/cake',
-    element: <MainLayout />,
+    element: (
+      <PrivateRoute>
+        <MainLayout />
+      </PrivateRoute>
+    ),
     children: [
       {
         index: true,
@@ -49,7 +58,6 @@ const appRoutes: RouteObject[] = [
   }
 ];
 
-
 const router = createBrowserRouter([
   {
     element: (
@@ -60,9 +68,6 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-
-
-
   return <RouterProvider router={router}/>;
 }
 
