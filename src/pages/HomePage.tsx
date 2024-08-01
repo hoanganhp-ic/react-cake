@@ -1,11 +1,10 @@
 import ButtonField from '../components/ButtonField';
-import SpinnerLoad from '../components/SpinnerLoad';
 import TextField from '../components/TextField';
 import { Cake } from '../models/cake.model';
 import CardCake from '../sections/CardCake';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import LoadingLayout from '../layouts/Loading';
-
+import cakeService from '../services/cake.service';
 
 
 const HomePage = () => {
@@ -30,12 +29,27 @@ const HomePage = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetch(`http://localhost:8080/api/cakes/search?name=${searchCakes}&page=${page}&page_size=3`)
-            .then(res => {
-                return res.json();
-            }).then(res => {
-                setCakes(res);
-                setCakes([...cakes, ...res]);
+        // fetch(`http://localhost:8080/api/cakes/search?name=${searchCakes}&page=${page}&page_size=3`)
+        //     .then(res => {
+        //         return res.json();
+        //     }).then(res => {
+        //         setCakes(res);
+        //         setCakes([...cakes, ...res]);
+        //     })
+        //     .finally(() => {
+        //         setTimeout(() => {
+        //             setIsLoading(false);
+        //         }, 1000);
+        //     });
+        cakeService.search({
+            name: searchCakes,
+            page: page,
+            page_size: 3
+        })
+            .then((res) => {
+                const cake = res.data;
+                setCakes(cake);
+                setCakes([...cakes, ...cake]);
             })
             .finally(() => {
                 setTimeout(() => {
@@ -57,7 +71,7 @@ const HomePage = () => {
             <TextField placeholder="Search cake" width='250px' onChange={handleSearch}/>
             <div className="wrapper-card-items">
                 {
-                    (cakes || []).map(cake => <CardCake key={cake.id} id={cake.id} name={cake.name} description={cake.description} />)
+                    (cakes || []).map(cake => <CardCake key={cake.ID} ID={cake.ID} name={cake.name} description={cake.description} />)
                 }
                 <div style={{ display: 'flex', justifyContent: 'center', width: '100%'}}>
                 <ButtonField loading={isLoading} onClick={handleShowMore}> Show more </ButtonField>

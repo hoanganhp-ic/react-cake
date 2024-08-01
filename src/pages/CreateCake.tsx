@@ -8,8 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-
-
+import cakeService from "../services/cake.service";
 
 const CreateCake = () => {
     const navigate = useNavigate();
@@ -26,23 +25,34 @@ const CreateCake = () => {
 
     const handleCreateCake = () => {
         setIsLoading(true);
-        fetch('http://localhost:8080/api/cakes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(cake)
-        }).then(res => {
-            return res.json();
-        })
-        .then(res => {
-            if (res.id) {
+        // fetch('http://localhost:8080/api/cakes', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(cake)
+        // }).then(res => {
+        //     return res.json();
+        // })
+        // .then(res => {
+        //     if (res.id) {
+        //         alert('作成成功');
+        //         navigate('/cake');
+        //     }
+        // })
+        // .finally(() => {
+        //     setIsLoading(false);})
+        cakeService.create(cake)
+            .then(() => {
                 alert('作成成功');
                 navigate('/cake');
-            }
-        })
-        .finally(() => {
-            setIsLoading(false);})
+            })
+            .catch(err => {
+                alert('err');
+            })
+            .finally(() => {
+                setIsLoading(false);
+            })
     }
     const checkButtonDisabled = useMemo(() => {
         if (!cake.name || !cake.description || !cake.price) {

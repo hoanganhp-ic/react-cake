@@ -5,6 +5,7 @@ import { Cake } from "../models/cake.model";
 import { useEffect, useState } from "react";
 import LoadingLayout from "../layouts/Loading";
 import ModalLayout from "../layouts/ModalLayout";
+import cakeService from "../services/cake.service";
 
 const DetailCake = () => {
 
@@ -20,20 +21,27 @@ const DetailCake = () => {
     const navigation = useNavigate();
 
     const handleRemoveCake = () => {
-        fetch(`${api}/cakes/${id}`, {method: 'DELETE'})
+        cakeService.deleteById(id)
             .then((res) => {
                 if (res.status < 400) {
                     navigation('/cake');
+                } else {
+                    alert(res.data);
                 }
+            })
+            .catch(err => {                
+                alert(err);
             })
     };
 
     useEffect(() => {
         setIsLoading(true);
-        fetch(`${api}/cakes/${id}`)
-            .then(res => res.json())
+        cakeService.getById(id)
             .then(res => {
-                setCake(res);
+                setCake(res.data);
+            })
+            .catch(err => {
+                alert(err);
             })
             .finally(() => {
                 setTimeout(() => {

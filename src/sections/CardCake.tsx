@@ -5,10 +5,10 @@ import { Cake } from '../models/cake.model';
 type Props = Cake & {
 };
 
-const CardCake = ({id, name, description}: Props) => {
+const CardCake = ({ID, name, description}: Props) => {
     const navigate = useNavigate();
     return (
-        <div className="card-items" onClick={() => navigate(`/cake/${id}`)}>
+        <div className="card-items" onClick={() => navigate(`/cake/${ID}`)}>
             <img src={LogoCake} alt="logo cake" className="card-image-cake" />
             <div style={{ height: '50%', width: '100%'}}></div>
             <div className='card-content'>
