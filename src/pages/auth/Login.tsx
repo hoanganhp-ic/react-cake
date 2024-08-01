@@ -10,6 +10,8 @@ import Container from '@mui/material/Container';
 import userService from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { getCurrentUserClient } from '../../services/auth-header';
 
 function Copyright(props: any) {
   return (
@@ -27,6 +29,7 @@ function Copyright(props: any) {
 export default function Login() {
 
   let navigate: NavigateFunction = useNavigate();
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -45,6 +48,13 @@ export default function Login() {
             window.location.reload();
         })
   };
+
+  useEffect(() => {
+    const user = getCurrentUserClient();
+    if (user) {
+      navigate('/cake');
+    }
+  }, [navigate]);
 
   return (
       <Container component="main" maxWidth="xs">
@@ -96,7 +106,7 @@ export default function Login() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

@@ -23,7 +23,7 @@ const DetailCake = () => {
         fetch(`${api}/cakes/${id}`, {method: 'DELETE'})
             .then((res) => {
                 if (res.status < 400) {
-                    navigation('/');
+                    navigation('/cake');
                 }
             })
     };
