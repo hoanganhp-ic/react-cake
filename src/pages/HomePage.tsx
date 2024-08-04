@@ -71,7 +71,7 @@ const HomePage = () => {
             <TextField placeholder="Search cake" width='250px' onChange={handleSearch}/>
             <div className="wrapper-card-items">
                 {
-                    (cakes || []).map(cake => <CardCake key={cake.ID} ID={cake.ID} name={cake.name} description={cake.description} />)
+                    (cakes || []).map(cake => <CardCake key={cake.ID} ID={cake.ID} name={cake.name} image_url={cake.image_url} description={cake.description} />)
                 }
                 <div style={{ display: 'flex', justifyContent: 'center', width: '100%'}}>
                 <ButtonField loading={isLoading} onClick={handleShowMore}> Show more </ButtonField>

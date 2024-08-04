@@ -9,8 +9,13 @@ class CakeService {
         return httpCommon.get("/users/current", { headers: authHeader() });
     }
 
-    create(cake: Cake) {
-        return httpCommon.post("/cakes", cake, { headers: authHeader() })
+    create(cake: any) {
+        return httpCommon.post("/cakes", cake, { 
+            headers: {
+                ...authHeader(),
+                'content-type': 'multipart/form-data',
+            } 
+        })
             .then(resp => {
                 return resp.data;
             });

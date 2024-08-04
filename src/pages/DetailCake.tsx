@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router-dom"
-import LogoCake from '../assets/banh-chung-0218134.webp';
 import ButtonField from "../components/ButtonField";
 import { Cake } from "../models/cake.model";
 import { useEffect, useState } from "react";
@@ -53,7 +52,7 @@ const DetailCake = () => {
     return (
         <LoadingLayout loading={isLoading}>
             <div style={{ display: 'flex', alignItems: 'center', columnGap: '2rem' }}>
-                <img alt="Cake" src={LogoCake} width='450px' height='450px' />
+                <img alt="Cake" src={`${process.env.REACT_APP_API_IMAGE}/${cake.image_url}`} width='450px' height='450px' />
                 <div>
                     <div style={{ marginBottom: '1rem' }}>
                         ケーキ名: <span style={{ fontSize: '24px'}}>{cake.name}</span>
@@ -65,15 +64,15 @@ const DetailCake = () => {
                         価値: <span style={{ fontSize: '24px'}}>{cake.price}</span>
                     </div>
                     <div style={{ display: 'flex' }}>
-                       <ButtonField onClick={() => setIsShowModal(true)}>削除</ButtonField>
+                        <ButtonField onClick={() => setIsShowModal(true)}>削除</ButtonField>
                     </div>
                 </div>
                 <ModalLayout 
-                 width="40%"
-                 title="ケーキを削除するか？"
-                 isShow={isShowModal}
-                 onClose={() => setIsShowModal(false)}
-                 onConfirm={handleRemoveCake} />
+                    width="40%"
+                    title="ケーキを削除するか？"
+                    isShow={isShowModal}
+                    onClose={() => setIsShowModal(false)}
+                    onConfirm={handleRemoveCake} />
             </div>
         </LoadingLayout>
     )
