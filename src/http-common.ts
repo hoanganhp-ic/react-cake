@@ -1,7 +1,7 @@
 import axios from "axios";
 import userService from "./services/user.service";
 import { useNavigate } from "react-router-dom";
-import authHeader, { getCurrentUserClient, logout } from "./services/auth-header";
+import { getCurrentUserClient, logout } from "./services/auth-header";
 
 const axiosInstance = axios.create({
     baseURL: "http://localhost:8080/api",
@@ -32,6 +32,8 @@ axiosInstance.interceptors.response.use(
     (error) => {
         if (error.response.status === 401 || error.response.status === 403) {
             logout();
+            const navigate = useNavigate();
+            navigate('/login');
         }
         return Promise.reject
     }

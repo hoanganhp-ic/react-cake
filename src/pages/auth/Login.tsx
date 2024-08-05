@@ -47,6 +47,10 @@ export default function Login() {
             navigate('/profile');
             window.location.reload();
         })
+        .catch((error) => {
+          console.log(error);
+          alert(error.response.data);
+        });
   };
 
   useEffect(() => {
