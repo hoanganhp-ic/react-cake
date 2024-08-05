@@ -6,7 +6,6 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import LoadingLayout from '../layouts/Loading';
 import cakeService from '../services/cake.service';
 
-
 const HomePage = () => {
 
     const [page, setPage] = useState(1);

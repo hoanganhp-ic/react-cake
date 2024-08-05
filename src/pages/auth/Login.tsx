@@ -7,11 +7,11 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import userService from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getCurrentUserClient } from '../../services/auth-header';
+import { login } from '../../services/auth.service';
 
 function Copyright(props: any) {
   return (
@@ -42,7 +42,7 @@ export default function Login() {
         email: data.get('email')?.toString(),
         password: data.get('password')?.toString(),
     }
-    userService.login(user)
+    login(user)
         .then(() => {
             navigate('/profile');
             window.location.reload();

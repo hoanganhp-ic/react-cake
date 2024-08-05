@@ -17,7 +17,7 @@ class CakeService {
             } 
         })
             .then(resp => {
-                return resp.data;
+                return resp;
             });
     }
 
