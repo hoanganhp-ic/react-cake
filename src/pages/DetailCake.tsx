@@ -1,10 +1,25 @@
 import { useNavigate, useParams } from "react-router-dom"
-import ButtonField from "../components/ButtonField";
+import Modal from '@mui/material/Modal';
 import { Cake } from "../models/cake.model";
 import { useEffect, useState } from "react";
 import LoadingLayout from "../layouts/Loading";
-import ModalLayout from "../layouts/ModalLayout";
+import Box from '@mui/material/Box';
 import cakeService from "../services/cake.service";
+import Button from '@mui/material/Button';
+
+const style = {
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+};
 
 const DetailCake = () => {
 
@@ -64,15 +79,22 @@ const DetailCake = () => {
                         価値: <span style={{ fontSize: '24px'}}>{cake.price}</span>
                     </div>
                     <div style={{ display: 'flex' }}>
-                        <ButtonField onClick={() => setIsShowModal(true)}>削除</ButtonField>
+                        {/* <ButtonField onClick={() => setIsShowModal(true)}>削除</ButtonField> */}
+                        <Button variant="outlined" color="error" onClick={() => setIsShowModal(true)}>削除</Button>
                     </div>
                 </div>
-                <ModalLayout 
-                    width="40%"
-                    title="ケーキを削除するか？"
-                    isShow={isShowModal}
+                <Modal
+                    open={isShowModal}
                     onClose={() => setIsShowModal(false)}
-                    onConfirm={handleRemoveCake} />
+                    aria-labelledby="child-modal-title"
+                >
+                    <Box sx={{...style }}>
+                        <h2 id="child-modal-title">ケーキを削除するか？</h2>
+                        <Button variant="outlined" onClick={() => setIsShowModal(false)}>キャンスル</Button>
+                        <Button variant="outlined" color="error" onClick={handleRemoveCake}>確認</Button>
+                    </Box>
+                </Modal>
+
             </div>
         </LoadingLayout>
     )
