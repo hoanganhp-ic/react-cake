@@ -6,6 +6,7 @@ import LoadingLayout from "../layouts/Loading";
 import Box from '@mui/material/Box';
 import cakeService from "../services/cake.service";
 import Button from '@mui/material/Button';
+import Image from 'react-bootstrap/Image';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -22,11 +23,6 @@ const style = {
 };
 
 const DetailCake = () => {
-
-    const api = process.env.REACT_APP_API as string | undefined;
-    if (!api) {
-        throw new Error('API is not defined');
-    }
 
     const { id } = useParams();
     const [cake, setCake] = useState<Cake>({});
@@ -48,6 +44,10 @@ const DetailCake = () => {
             })
     };
 
+    const handleUpdateCake = () => {
+        navigation(`/cake/${id}/update`);
+    };
+
     useEffect(() => {
         setIsLoading(true);
         cakeService.getById(id)
@@ -67,7 +67,7 @@ const DetailCake = () => {
     return (
         <LoadingLayout loading={isLoading}>
             <div style={{ display: 'flex', alignItems: 'center', columnGap: '2rem' }}>
-                <img alt="Cake" src={`${process.env.REACT_APP_API_IMAGE}/${cake.image_url}`} width='450px' height='450px' />
+            <Image src={`${process.env.REACT_APP_API_IMAGE}/${cake.image_url}`} rounded />
                 <div>
                     <div style={{ marginBottom: '1rem' }}>
                         ケーキ名: <span style={{ fontSize: '24px'}}>{cake.name}</span>
@@ -78,9 +78,9 @@ const DetailCake = () => {
                     <div style={{ marginBottom: '1.5rem' }}>
                         価値: <span style={{ fontSize: '24px'}}>{cake.price}</span>
                     </div>
-                    <div style={{ display: 'flex' }}>
-                        {/* <ButtonField onClick={() => setIsShowModal(true)}>削除</ButtonField> */}
-                        <Button variant="outlined" color="error" onClick={() => setIsShowModal(true)}>削除</Button>
+                    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                        <Button variant="contained" color="error" onClick={() => setIsShowModal(true)}>削除</Button>
+                        <Button variant="contained" color="success" onClick={handleUpdateCake}>編集</Button>
                     </div>
                 </div>
                 <Modal
@@ -90,8 +90,10 @@ const DetailCake = () => {
                 >
                     <Box sx={{...style }}>
                         <h2 id="child-modal-title">ケーキを削除するか？</h2>
-                        <Button variant="outlined" onClick={() => setIsShowModal(false)}>キャンスル</Button>
-                        <Button variant="outlined" color="error" onClick={handleRemoveCake}>確認</Button>
+                        <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
+                        <Button variant="contained" onClick={() => setIsShowModal(false)}>キャンスル</Button>
+                        <Button variant="contained" color="error" onClick={handleRemoveCake}>確認</Button>
+                        </div>
                     </Box>
                 </Modal>
 

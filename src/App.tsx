@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Register from './pages/auth/Register';
 import PrivateRoute from './route/PrivateRoute';
 import { useEffect, ReactNode } from 'react';
+import UpdateCake from './pages/UpdateCake';
 
 const appRoutes: RouteObject[] = [
   {
@@ -54,6 +55,10 @@ const appRoutes: RouteObject[] = [
       {
         path: ':id',
         element: <DetailCake />
+      },
+      {
+        path: ':id/update',
+        element: <UpdateCake />
       }
     ]
   }
@@ -79,7 +84,9 @@ function AuthWrapper({ children }: AuthWrapperProps) {
 
   useEffect(() => {
     const token = localStorage.getItem('user');
-    if (token) {
+    if (!token) {
+      navigate('/login');
+    } else {
       navigate('/cake');
     }
   }, [navigate]);

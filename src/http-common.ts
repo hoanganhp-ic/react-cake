@@ -30,12 +30,13 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     (error) => {
+        console.log('error', error); // for debug
         if (error.response.status === 401 || error.response.status === 403) {
             logout();
             const navigate = useNavigate();
             navigate('/login');
         }
-        return Promise.reject
+        return Promise.reject(error);
     }
 );
 

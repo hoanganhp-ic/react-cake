@@ -44,8 +44,8 @@ export default function Login() {
     }
     login(user)
         .then(() => {
-            navigate('/profile');
-            window.location.reload();
+            navigate('/cake');
+            // window.location.reload();
         })
         .catch((error) => {
           console.log(error);

@@ -1,6 +1,5 @@
 import httpCommon from "../http-common";
 import authHeader from "./auth-header";
-import { User } from "../models/user.model";
 import { Cake } from "../models/cake.model";
 
 
@@ -31,6 +30,14 @@ class CakeService {
 
     deleteById(id: string | undefined) {
         return httpCommon.delete(`/cakes/${id}`, { headers: authHeader() });
+    }
+
+    updateById(id: string | undefined, cake: any) {
+        return httpCommon.put(`/cakes/${id}`, cake, {
+            headers: {
+                'content-type': 'multipart/form-data',
+            }
+        });
     }
 }
 
