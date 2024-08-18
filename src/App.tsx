@@ -1,6 +1,6 @@
 import HomePage from './pages/HomePage';
 import './App.css';
-import { createBrowserRouter, Outlet, RouteObject, RouterProvider, useNavigate } from 'react-router-dom';
+import { useLocation, createBrowserRouter, Outlet, RouteObject, RouterProvider, useNavigate } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import CreateCake from './pages/CreateCake';
 import DetailCake from './pages/DetailCake';
@@ -81,12 +81,13 @@ interface AuthWrapperProps {
 
 function AuthWrapper({ children }: AuthWrapperProps) {
   const navigate = useNavigate();
-
+  const location = useLocation()
+  
   useEffect(() => {
     const token = localStorage.getItem('user');
     if (!token) {
       navigate('/login');
-    } else {
+    } else if (location.pathname === '/') {
       navigate('/cake');
     }
   }, [navigate]);
