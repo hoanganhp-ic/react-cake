@@ -96,6 +96,9 @@ function AuthWrapper({ children }: AuthWrapperProps) {
 }
 
 function App() {
+  useEffect(() => {
+    document.title = 'Cake';
+  }, []);
   return <RouterProvider router={router}/>;
 }
 
