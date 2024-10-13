@@ -81,7 +81,7 @@ interface AuthWrapperProps {
 
 function AuthWrapper({ children }: AuthWrapperProps) {
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
   
   useEffect(() => {
     const token = localStorage.getItem('user');
